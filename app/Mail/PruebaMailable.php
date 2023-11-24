@@ -61,7 +61,7 @@ class PruebaMailable extends Mailable
     public function attachments(): array
     {
         return [
-            Attachment::fromPath(public_path('storage').$this->usuario.'-'.$this->mes_actual.'.pdf')->as($this->usuario.'-'.$this->mes_actual.'.pdf')->withMime('application/pdf')
+            Attachment::fromPath(public_path('storage').'/'.$this->usuario.'-'.$this->mes_actual.'.pdf')->as($this->usuario.'-'.$this->mes_actual.'.pdf')->withMime('application/pdf')
         ];
     }
 }
