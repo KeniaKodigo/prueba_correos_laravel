@@ -54,9 +54,9 @@ class PruebaController extends Controller
                 $usuario = $value['nombre'];
                 $sub_total = $value['totalAmount'];
                 $pdf = PDF::loadView('pdf.factura', compact('usuario','img','mes_nombre','sub_total'));
-                $pdf->save(public_path("pdf/$usuario-$mes_nombre.pdf"));
+                $pdf->save(public_path("pdf/$usuario-$mes_actual.pdf"));
                 //echo $value['correo'];
-                Mail::to($value['correo'])->send(new PruebaMailable($usuario,$mes_nombre));
+                Mail::to($value['correo'])->send(new PruebaMailable($usuario,$mes_actual));
                 echo "Mensaje Enviado";
             }
         }
