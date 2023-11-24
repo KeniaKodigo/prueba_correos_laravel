@@ -37,7 +37,7 @@ class PruebaController extends Controller
     }
 
     public function enviarCorreos(){
-        $usuarios = Http::get("http://localhost/api_proveedores_fsj17/public/api/proveedores_activos");
+        $usuarios = Http::get("http://www.pruebaclientes.local/public/api/proveedores_activos");
 
         $mes_actual = Carbon::now()->month;
         setlocale(LC_ALL, 'es');
