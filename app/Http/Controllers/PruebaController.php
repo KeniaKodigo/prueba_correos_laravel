@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Mail\PruebaMailable;
 use Barryvdh\DomPDF\Facade\Pdf;
 use Carbon\Carbon;
+use Faker\Provider\File;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Http;
 use Illuminate\Support\Facades\Mail;
@@ -37,14 +38,15 @@ class PruebaController extends Controller
     }
 
     public function enviarCorreos(){
-        $usuarios = Http::get("http://www.pruebaclientes.local/public/api/proveedores_activos");
+        //$usuarios = Http::get("http://www.pruebaclientes.local/public/api/proveedores_activos");
+        $clientes = json_decode(file_get_contents(public_path() . "/clientes.json"), true);
 
         $mes_actual = Carbon::now()->month;
         setlocale(LC_ALL, 'es');
         $mes_nombre = Carbon::now()->month(-1)->formatLocalized('%B');
         $img = '/img/logo-factura.png';
         
-        $correos = $usuarios['detalle'];
+        $correos = $clientes['detalle'];
         foreach($correos as $value){
             $mes_factura_salida = Carbon::parse($value['checkOutDate'])->month;
             //echo $mes_factura_salida . "<br>";
@@ -58,6 +60,8 @@ class PruebaController extends Controller
                 echo "Mensaje Enviado";
             }
         }
+        
+        //return $clientes['detalle'];
         //Mail::to('yanetprogrammin19@gmail.com')->send(new PruebaMailable);
         //return "Mensaje Enviado";
 

@@ -1,0 +1,65 @@
+{
+    "status": 200,
+    "detalle": [
+        {
+            "id": 1,
+            "nombre": "Karen Alexandra Solis",
+            "direccion": "La Palma, Chalatenango",
+            "telefono": 6542389,
+            "correo": "karen_solis@gmail.com",
+            "checkInDate": "2023-11-24",
+            "checkOutDate": "2023-11-28",
+            "firstPayment": 118.8,
+            "secondPayment": 475.2,
+            "totalAmount": 594,
+            "id_estado": 1,
+            "created_at": null,
+            "updated_at": "2023-08-29T23:08:49.000000Z"
+        },
+        {
+            "id": 2,
+            "nombre": "Diego Jose Rodriguez",
+            "direccion": "Tejutla, Chalatenango",
+            "telefono": 6543423,
+            "correo": "rodriguez23@gmail.com",
+            "checkInDate": "2023-11-24",
+            "checkOutDate": "2023-11-30",
+            "firstPayment": 200,
+            "secondPayment": 300,
+            "totalAmount": 500,
+            "id_estado": 1,
+            "created_at": null,
+            "updated_at": "2023-08-28T21:37:07.000000Z"
+        },
+        {
+            "id": 3,
+            "nombre": "Erick Vasquez",
+            "direccion": "Guatemala",
+            "telefono": 70894523,
+            "correo": "erick19@outlook.com",
+            "checkInDate": "2023-12-05",
+            "checkOutDate": "2023-12-10",
+            "firstPayment": 220.5,
+            "secondPayment": 220.5,
+            "totalAmount": 441,
+            "id_estado": 1,
+            "created_at": "2023-08-25T22:43:39.000000Z",
+            "updated_at": "2023-08-29T21:50:38.000000Z"
+        },
+        {
+            "id": 4,
+            "nombre": "Kenia Paiz",
+            "direccion": "Chalatenango",
+            "telefono": 23345678,
+            "correo": "paizkenia@gmail.com",
+            "checkInDate": "2024-01-15",
+            "checkOutDate": "2024-01-20",
+            "firstPayment": 150,
+            "secondPayment": 150,
+            "totalAmount": 300,
+            "id_estado": 1,
+            "created_at": "2023-08-29T21:30:20.000000Z",
+            "updated_at": "2023-08-29T23:09:15.000000Z"
+        }
+    ]
+}
