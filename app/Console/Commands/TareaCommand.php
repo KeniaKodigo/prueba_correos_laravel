@@ -5,8 +5,10 @@ namespace App\Console\Commands;
 use App\Mail\PruebaMailable;
 use Barryvdh\DomPDF\Facade\Pdf;
 use Illuminate\Console\Command;
+use CloudinaryLabs\CloudinaryLaravel\Facades\Cloudinary;
 use Illuminate\Support\Facades\Http;
 use Illuminate\Support\Facades\Mail;
+use Carbon\Carbon;
 
 class TareaCommand extends Command
 {
@@ -29,15 +31,30 @@ class TareaCommand extends Command
      */
     public function handle()
     {
-        $usuarios = Http::get("http://localhost/api_proveedores_fsj17/public/api/proveedores_activos");
+        $clientes = json_decode(file_get_contents(public_path() . "/clientes.json"), true);
 
-        $pdf = PDF::loadView('pdf.factura');
-
-        $correos = $usuarios['detalle'];
+        $mes_actual = Carbon::now()->month;
+        setlocale(LC_ALL, 'es');
+        $mes_nombre = Carbon::now()->month(-1)->formatLocalized('%B');
+        $img = '/img/logo-factura.png';
+        
+        $correos = $clientes['detalle'];
         foreach($correos as $value){
-            //echo $value['correo'];
-            Mail::to($value['correo'])->send(new PruebaMailable($pdf));
-            //echo "Mensaje Enviado";
+            $mes_factura_salida = Carbon::parse($value['fecha_salida'])->month;
+            //echo $mes_factura_salida . "<br>";
+            if($mes_factura_salida == $mes_actual){
+                $usuario = $value['nombre'];
+                $sub_total = $value['monto_total'];
+                $pdf = PDF::loadView('pdf.factura', compact('usuario','img','mes_nombre','sub_total'));
+                $pdf->save(public_path('storage')."/$usuario-$mes_actual.pdf");
+                //seccion de cloudinary
+                $pdfPathFactura = 'storage/'.$usuario.'-'.$mes_actual.'.pdf';
+                $uploadedFile1 = Cloudinary::upload(public_path($pdfPathFactura),['folder' => 'facturas',]);
+                $pdfUrl1 = $uploadedFile1->getSecurePath();
+                //echo $value['correo'];
+                /*Mail::to($value['correo'])->send(new PruebaMailable($usuario,$mes_actual));*/
+                echo "Mensaje Enviado";
+            }
         }
     }
 }

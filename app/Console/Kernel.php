@@ -17,7 +17,7 @@ class Kernel extends ConsoleKernel
 
         //llamando una tarea para que se haga en automatico
         //$schedule->call(new TareaAutoController)->everyTwoMinutes();
-        $schedule->command('tarea:correo')->lastDayOfMonth('18:09 ');
+        $schedule->command('tarea:correo')->everyFiveMinutes();
     }
 
     /**

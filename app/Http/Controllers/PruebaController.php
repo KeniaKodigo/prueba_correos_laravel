@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Mail\PruebaMailable;
 use Barryvdh\DomPDF\Facade\Pdf;
 use Carbon\Carbon;
+use CloudinaryLabs\CloudinaryLaravel\Facades\Cloudinary;
 use Faker\Provider\File;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Http;
@@ -48,15 +49,19 @@ class PruebaController extends Controller
         
         $correos = $clientes['detalle'];
         foreach($correos as $value){
-            $mes_factura_salida = Carbon::parse($value['checkOutDate'])->month;
+            $mes_factura_salida = Carbon::parse($value['fecha_salida'])->month;
             //echo $mes_factura_salida . "<br>";
             if($mes_factura_salida == $mes_actual){
                 $usuario = $value['nombre'];
-                $sub_total = $value['totalAmount'];
+                $sub_total = $value['monto_total'];
                 $pdf = PDF::loadView('pdf.factura', compact('usuario','img','mes_nombre','sub_total'));
                 $pdf->save(public_path('storage')."/$usuario-$mes_actual.pdf");
+                //seccion de cloudinary
+                $pdfPathFactura = 'storage/'.$usuario.'-'.$mes_actual.'.pdf';
+                $uploadedFile1 = Cloudinary::upload(public_path($pdfPathFactura),['folder' => 'facturas',]);
+                $pdfUrl1 = $uploadedFile1->getSecurePath();
                 //echo $value['correo'];
-                Mail::to($value['correo'])->send(new PruebaMailable($usuario,$mes_actual));
+                /*Mail::to($value['correo'])->send(new PruebaMailable($usuario,$mes_actual));*/
                 echo "Mensaje Enviado";
             }
         }
