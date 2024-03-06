@@ -51,5 +51,5 @@ $app->singleton(
 | from the actual running of the application and sending responses.
 |
 */
-
+ini_set('max_execution_time', 300); // Ajusta el valor según tus necesidades
 return $app;
